@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includepath>
+  <includepathentry path="C:\Perl\site\lib" />
+  <includepathentry path="C:\Perl\lib" />
+  <includepathentry path="C:\Program Files\Meister72\client\perl\lib" />
+  <includepathentry path="." />
+</includepath>
+
