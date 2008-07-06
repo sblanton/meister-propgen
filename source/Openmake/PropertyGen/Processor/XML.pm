@@ -6,35 +6,15 @@ package Openmake::PropertyGen::Processor::XML;
 
 =cut
 
+BEGIN {
+	@ISA = qw(Openmake::PropertyGen::Processor)
+}
+
 use Carp;
-use Config::Properties;
+use XML::Twig;
 
 use strict;
 
-sub new {
-   my $this = shift;
-   my $class = ref($this) || $this;
-   my $self = {};
-   bless $self, $class;
-   $self->initialize(@_);
-   return $self;
-}
-
-sub initialize {
-	my $self = shift;
-	
-	my %parms = @_;
-	
-	%$self = map { $_ => $parms{$_}} %parms;
-
-     confess("Source file not defined") unless defined $self->{source_file_name};
-     confess("Source file not found") unless -f $self->{source_file_name};
-     confess("Target configuration not defined") unless defined $self->{target_config};
-     confess("Output location not defined") unless defined $self->{output_location};
-     cluck("No operations defined") unless defined $self->{operations};
-
-    my $target_file_name = $self->{output_location} . "/" . $self->{target_config} . "/" . $self->{source_file_name};
-}
 
 sub parse_all {
 	my $self = shift;
