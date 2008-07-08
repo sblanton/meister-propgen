@@ -8,6 +8,7 @@ package Openmake::PropertyGen::ParameterDoc;
 
 use Carp;
 use Config::Properties;
+use XML::Twig;
 
 use strict;
 
@@ -34,8 +35,9 @@ sub initialize {
 
 	if ( exists $input{file_name} ) {
 		$self->{file_name} = $input{file_name};
+		return 1;
 	}
-	return 1;
+	return undef;
 }
 
 sub parse {
@@ -60,14 +62,12 @@ and operation information
 =cut
 
 	my $self = shift;
-	my $file = shift or confess("Source input file not specified");
+	exists $self->{config_properties}->{parameter_input_file} or confess("Source input file not specified");
 
-	my $processor = shift; #-- future support
-
-	unless ($processor) {
-		$processor = Openmake::PropertyGen::Processor->new();
-	}
-
+    my $file = $self->{config_properties}->{parameter_input_file};
+    
+    -f $file or confess("$file not found");
+    
    #-- define columns with defaults values
    #     can override with properties file
 
@@ -84,6 +84,9 @@ and operation information
 	if ( exists $self->{config_properties} ) {
 		$p = $self->{config_properties};
 
+		if ( exists $p->{config_column} ) {
+			$iURL = $p->{config_column};
+		}
 		if ( exists $p->{url_column} ) {
 			$iURL = $p->{url_column};
 		}
@@ -162,17 +165,21 @@ and operation information
 					$new_datum = $new_new_datum if $new_new_datum;
 				}
 
-				push @{ $processor->{$url}->{$found_tier} },
-				  { UDL => $udl, new_value => $new_datum};
+                
+                my @target_config = ();
+                
+                @target_config = @{$self->{url}->{$url}->{$found_tier}}
+                	 if exists $self->{url}->{$url}->{$found_tier};
+                
+                push @target_config, { udl => $udl, new_value => $new_datum};
+				@{$self->{url}->{$url}->{$found_tier}} = @target_config;
 
-				#				gen_doc( $found_tier, $url, $udl, $new_datum );
 			  }
 		}
 	);
 
-	$spreadsheet_handler->parsefile($file);
+	return $spreadsheet_handler->parsefile($file);
 
-	return $processor;
 }
 
 sub read_document_config {
@@ -197,7 +204,7 @@ defining columns in an excel spreadsheet
 	$properties->load(*SRC);
 	close SRC;
 
-	$self->{config_properties} = \{ $properties->properties };
+	$self->{config_properties} = $properties->getProperties;
 
 	return 1;
 

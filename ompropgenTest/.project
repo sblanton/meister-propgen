@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>test</name>
+	<name>ompropgenTest</name>
 	<comment></comment>
 	<projects>
+		<project>ompropgenPerl</project>
+		<project>omtestPerl</project>
 		<project>source</project>
 	</projects>
 	<buildSpec>
