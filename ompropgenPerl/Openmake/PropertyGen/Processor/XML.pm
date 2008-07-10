@@ -67,7 +67,7 @@ sub parse_token {
 sub read_source_file {
 	my $self = shift;
 	
-   my $src_file = $self->{source_file_name};
+   my $src_file = $self->{workspace_root} . '/' . $self->{source_file_name};
    
    open SRC, ">$src_file" or confess("Couldn't open target XML file for reading");
    $self->{text} = <SRC>;

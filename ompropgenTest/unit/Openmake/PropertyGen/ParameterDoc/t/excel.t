@@ -48,11 +48,16 @@ ok(ref( $first_op) eq 'HASH', "first op is a hash ref: ref=" . ref($first_op));
 ok(exists $first_op->{udl}, "udl exists for first op");
 
 $pg->{output_location} = '.';
+$pg->{workspace_location} = '.';
 
 my @processors;
+my $rProcessors;
 
-ok(@processors = $pg->generate_all_target_config_processors('dev'),"Generate processors");
+ok($rProcessors = $pg->generate_all_target_config_processors('dev'),"Generate processors");
 
-ok( (scalar @processors > 0), "\@processors is not null: " . scalar @processors);
+ok( (scalar @$rProcessors > 0), "\@processors is not null: " . scalar @$rProcessors);
 
+foreach my $proc ( @$rProcessors ) {
+	ok( $proc->parse_all(), "parse_all successful" )
+}
 

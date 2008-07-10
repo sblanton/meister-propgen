@@ -24,7 +24,8 @@ sub new {
 
 sub parse_all {
 	my $self = shift;
-	$self->{text} = $self->read_source_file()
+ 
+ 	$self->{text} = $self->read_source_file()
 	  or confess();
 
 	foreach my $op ( $self->{operations} ) {
@@ -33,13 +34,16 @@ sub parse_all {
 
 	delete $self->{text};
 
+  $self->save_target_file();
 }
 
 sub parse_property {
 	my $self = shift;
 
 	my $op_ref = shift;
-	my ( $udl, $new_value ) = @$op_ref;
+
+    my $udl  = $op_ref->{udl};
+    my $new_value  = $op_ref->{new_value};
 
 	$udl =~ s|property://||;
 
@@ -58,13 +62,16 @@ sub parse_token {
 sub read_source_file {
 	my $self = shift;
 
-	my $src_file = $self->{source_file_name};
-	open SRC, "<$src_file" or die "Couldn't open source properties file";
+   my $src_file = $self->{source_file_name};
+   
+   print "Reading $src_file...\n";
+   
+   	open SRC, "<$src_file" or die "Couldn't open source properties file";
 	my $properties = new Config::Properties;
 	$properties->load(*SRC);
 	close SRC;
 
-	$self->{properties} = \{ $properties->properties };
+	$self->{properties} = $properties->getProperties;
 
 }
 
@@ -72,9 +79,13 @@ sub save_target_file {
 	my $self = shift;
 
 	my $properties = new Config::Properties;
+	print "keys: %{$self->{properties}}\n";
+	
 	$properties->setFromTree( $self->{properties} );
 
 	my $tgt_file = $self->{target_file_name};
+
+   print "Generating properties file: $tgt_file\n";   
 
 	open TGT, ">$tgt_file" or die "Couldn't open target properties file";
 	$properties->store(*TGT);

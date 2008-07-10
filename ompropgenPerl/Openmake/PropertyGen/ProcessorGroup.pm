@@ -77,6 +77,10 @@ sub generate_all_target_config_processors {
 		confess("Output location not defined!");
 	}
 
+	unless ( exists $self->{workspace_location} ) {
+		confess("Workspace location not defined!");
+	}
+
 	my @urls = keys %{ $self->{url} };
 
 	unless (@urls) {
@@ -109,7 +113,8 @@ sub generate_all_target_config_processors {
 				source_file_name => $source_file,
 				target_config    => $target_config,
 				output_location  => $self->{output_location},
-				operations       => \@ops
+				workspace_location  => $self->{workspace_location},
+				operations       => @ops
 			);
 
 			confess(
@@ -118,10 +123,12 @@ sub generate_all_target_config_processors {
 
 			push @processors, $processor;
 			
-			print "SCALAR: " . scalar(@processors) . "\n";
 		}
 	}
-	return @processors;
+	
+	push @{$self->{processors}},@processors;
+	
+	return $self->{processors};
 }
 
 sub generate_all_processors {
