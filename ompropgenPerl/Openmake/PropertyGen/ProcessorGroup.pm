@@ -19,6 +19,10 @@ to apply for a given target configuration. The operations involve a "Universal D
 
 =cut
 
+use Carp qw(cluck);
+
+#use strict;
+
 sub new {
 
 =item new()
@@ -31,7 +35,8 @@ Generic constructor
 	my $class = ref($this) || $this;
 	my $self  = {};
 	bless $self, $class;
-#	$self->initialize();
+
+	#	$self->initialize();
 	return $self;
 }
 
@@ -60,34 +65,67 @@ target configuration
 
 }
 
-sub get_file_type {
+sub generate_processor {
+
+}
+
+sub generate_all_target_config_processors {
 	my $self = shift;
-	
-	my $udl = shift or confess("UDL not defined!");
-	
-	$udl = m|(\w+)://|;
-	my $protocol = $1;
+	my $target_config = shift or confess("No target configuration specified");
 
-    my $file_types;
-    
-    $file_types->{xpath} = 'xml';
-    $file_types->{property} = 'property';
-    $file_types->{token} = 'text';
-    
-    return $file_types->{$protocol};
+	unless ( exists $self->{output_location} ) {
+		confess("Output location not defined!");
+	}
 
+	my @urls = keys %{ $self->{url} };
+
+	unless (@urls) {
+		cluck("No URL's to process");
+		return 0;
+	}
+
+	my @processors;
+
+	foreach my $url (@urls) {
+		if ( exists $self->{url}->{$url}->{$target_config} ) {
+
+			my $source_file = $url;
+			my @ops         = @{ $self->{url}->{$url}->{$target_config} };
+			my $file_type   = $self->{url}->{$url}->{file_type};
+
+			print "Creating processor for $source_file and $target_config...\n";
+
+			my %processor_class = (
+				properties => 'Property',
+				xml        => 'XML'
+			);
+
+			my $class =
+			  "Openmake::PropertyGen::Processor::$processor_class{$file_type}";
+			
+			eval "require $class";
+			
+			my $processor = $class->new(
+				source_file_name => $source_file,
+				target_config    => $target_config,
+				output_location  => $self->{output_location},
+				operations       => \@ops
+			);
+
+			confess(
+				"Failed to create processor for $source_file and $target_config"
+			  )  unless $processor;
+
+			push @processors, $processor;
+			
+			print "SCALAR: " . scalar(@processors) . "\n";
+		}
+	}
+	return @processors;
 }
 
-sub generate_new_document {
-	
-}
+sub generate_all_processors {
 
-sub generate_target_config_documents{
-	
-}
-
-sub generate_all_documents {
-	
 }
 
 =back

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.amfam.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:intf="http://service.amfam.com" xmlns:impl="http://service.amfam.com">
+  <wsdl:types>
+    <schema elementFormDefault="qualified" targetNamespace="http://service.amfam.com" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://service.amfam.com" xmlns:intf="http://service.amfam.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <element name="message">
+    <complexType>
+     <sequence>
+      <element name="msg" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="messageResponse">
+    <complexType>
+     <sequence>
+      <element name="messageReturn" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="PingInputType">
+    <sequence>
+     <element name="pingLevel" nillable="true" type="impl:PingLevelType"/>
+    </sequence>
+   </complexType>
+   <complexType name="PingLevelType">
+    <sequence/>
+   </complexType>
+   <element name="ping">
+    <complexType>
+     <sequence>
+      <element name="pingInput" nillable="true" type="impl:PingInputType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="PingResultType">
+    <sequence>
+     <element name="status" nillable="true" type="impl:StatusType"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+     <element maxOccurs="unbounded" name="verification" nillable="true" type="impl:VerificationType"/>
+     <element name="timeTakenForPing" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="StatusType">
+    <sequence>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="VerificationType">
+    <sequence>
+     <element name="componentName" nillable="true" type="xsd:string"/>
+     <element name="status" nillable="true" type="impl:StatusType"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+     <element name="timeTakenForComponentVerification" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="pingResponse">
+    <complexType>
+     <sequence>
+      <element name="pingReturn" nillable="true" type="impl:PingResultType"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  </wsdl:types>
+  <wsdl:message name="pingResponse">
+    <wsdl:part name="parameters" element="intf:pingResponse"/>
+  </wsdl:message>
+  <wsdl:message name="messageResponse">
+    <wsdl:part name="parameters" element="intf:messageResponse"/>
+  </wsdl:message>
+  <wsdl:message name="messageRequest">
+    <wsdl:part name="parameters" element="intf:message"/>
+  </wsdl:message>
+  <wsdl:message name="pingRequest">
+    <wsdl:part name="parameters" element="intf:ping"/>
+  </wsdl:message>
+  <wsdl:portType name="HelloWorldWASService">
+    <wsdl:operation name="message">
+      <wsdl:input name="messageRequest" message="intf:messageRequest"/>
+      <wsdl:output name="messageResponse" message="intf:messageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <wsdl:input name="pingRequest" message="intf:pingRequest"/>
+      <wsdl:output name="pingResponse" message="intf:pingResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HelloWorldWASServiceSoapBinding" type="intf:HelloWorldWASService">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="message">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="messageRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="messageResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="pingRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pingResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HelloWorldWASService">
+    <wsdl:port name="HelloWorldWASService" binding="intf:HelloWorldWASServiceSoapBinding">
+      <wsdlsoap:address location="http://localhost:9080/mpscmwhw_service/services/HelloWorldWASService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

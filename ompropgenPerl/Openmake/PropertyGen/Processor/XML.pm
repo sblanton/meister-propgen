@@ -7,6 +7,7 @@ package Openmake::PropertyGen::Processor::XML;
 =cut
 
 BEGIN {
+	use Openmake::PropertyGen::Processor;
 	@ISA = qw(Openmake::PropertyGen::Processor)
 }
 
@@ -15,6 +16,10 @@ use XML::Twig;
 
 use strict;
 
+sub new {
+	my $self = shift;
+	return $self->SUPER::new(@_);
+}
 
 sub parse_all {
 	my $self = shift;

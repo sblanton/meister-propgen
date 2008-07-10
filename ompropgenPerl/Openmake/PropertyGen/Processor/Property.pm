@@ -8,12 +8,19 @@ package Openmake::PropertyGen::Processor::Property;
 
 
 BEGIN {
+	use Openmake::PropertyGen::Processor;
 	@ISA = qw(Openmake::PropertyGen::Processor)
 }
+
 use Carp;
 use Config::Properties;
 
 use strict;
+
+sub new {
+	my $self = shift;
+	return $self->SUPER::new(@_);
+}
 
 sub parse_all {
 	my $self = shift;

@@ -1,4 +1,4 @@
-package Openmake::PropertyGen::Processor::XML;
+package Openmake::PropertyGen::Processor;
 
 =head1 Name
 
@@ -6,7 +6,7 @@ package Openmake::PropertyGen::Processor::XML;
 
 =cut
 
-use Carp;
+use Carp qw(confess cluck);
 
 use strict;
 
@@ -26,11 +26,11 @@ sub initialize {
 	
 	%$self = map { $_ => $parms{$_}} %parms;
 
-     confess("Source file not defined") unless defined $self->{source_file_name};
-     confess("Source file not found") unless -f $self->{source_file_name};
-     confess("Target configuration not defined") unless defined $self->{target_config};
-     confess("Output location not defined") unless defined $self->{output_location};
-     cluck("No operations defined") unless defined $self->{operations};
+     confess("ERROR: Source file not defined") unless defined $self->{source_file_name};
+     cluck("WARN: Source file not found") unless -f $self->{source_file_name};
+     confess("ERROR: Target configuration not defined") unless defined $self->{target_config};
+     confess("ERROR: Output location not defined") unless defined $self->{output_location};
+     cluck("WARN: No operations defined") unless defined $self->{operations};
 
     my $target_file_name = $self->{output_location} . "/" . $self->{target_config} . "/" . $self->{source_file_name};
 }

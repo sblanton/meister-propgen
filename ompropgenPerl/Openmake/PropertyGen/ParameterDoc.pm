@@ -6,9 +6,10 @@ package Openmake::PropertyGen::ParameterDoc;
 
 =cut
 
-use Carp;
+use Carp qw(cluck confess);
 use Config::Properties;
 use XML::Twig;
+use File::Basename;
 
 use strict;
 
@@ -62,17 +63,25 @@ and operation information
 =cut
 
 	my $self = shift;
-	exists $self->{config_properties}->{parameter_input_file} or confess("Source input file not specified");
+	exists $self->{config_properties}->{parameter_input_file}
+	  or confess("Source input file not specified");
 
-    my $file = $self->{config_properties}->{parameter_input_file};
-    
-    -f $file or confess("$file not found");
-    
-   #-- define columns with defaults values
-   #     can override with properties file
+	my $file = $self->{config_properties}->{parameter_input_file};
+
+	-f $file or confess("$file not found");
+
+	my $processor_group = shift;
+
+	unless ($processor_group) {
+		$processor_group = Openmake::PropertyGen::ProcessorGroup->new();
+	}
+	my $pg = $processor_group;
+
+	#-- define columns with defaults values
+	#     can override with properties file
 
 	my $iStartingColumn = 0;
-	my $iStartingRow = 6;
+	my $iStartingRow    = 6;
 
 	my $iTier     = 3;
 	my $iURL      = 4;
@@ -85,7 +94,7 @@ and operation information
 		$p = $self->{config_properties};
 
 		if ( exists $p->{config_column} ) {
-			$iURL = $p->{config_column};
+			$iTier = $p->{config_column};
 		}
 		if ( exists $p->{url_column} ) {
 			$iURL = $p->{url_column};
@@ -96,9 +105,6 @@ and operation information
 		if ( exists $p->{new_value_column} ) {
 			$iNewDatum = $p->{new_value_column};
 		}
-		if ( exists $p->{starting_column} ) {
-			$iStartingColumn = $p->{starting_column};
-		}
 		if ( exists $p->{starting_row} ) {
 			$iStartingRow = $p->{starting_row};
 		}
@@ -107,7 +113,7 @@ and operation information
 	my $url       = '';
 	my $udl       = '';
 	my $new_datum = '';
-	my $iRow            = 0;
+	my $iRow      = 0;
 
 	#-- get all of the XML files for parsing
 	my $spreadsheet_handler = XML::Twig->new(
@@ -124,10 +130,12 @@ and operation information
 
 				}
 
+				print "Reading row: $iRow\n";
+
 				return unless $iRow >= $iStartingRow;
 
 #-- Now we can start processing. Get all the columns in this row. Beware skipped entries
-#     the fifth cell could actually be the 8th cell if the first three columns of this row have
+#     the 8th cell could actually be the 5th cell if the first three columns of this row have
 #     never been formatted
 
 				my @cells = $_->children();
@@ -140,11 +148,14 @@ and operation information
 
 				}
 
-#-- Ignore columns up to the starting column
+				#-- Ignore columns up to the starting column
 				return unless ( $iTier - $iStartingColumn ) < scalar @cells;
-				
+
 				#-- now get to the meat of things
 				my $found_tier = $cells[ $iTier - $iStartingColumn ]->text();
+
+				return
+				  unless $found_tier;  #-- ignore blank lines...no tier, no line
 
 				if ( ( $iURL - $iStartingColumn ) < scalar @cells ) {
 					my $new_url = $cells[ $iURL - $iStartingColumn ]->text();
@@ -165,20 +176,30 @@ and operation information
 					$new_datum = $new_new_datum if $new_new_datum;
 				}
 
-                
-                my @target_config = ();
-                
-                @target_config = @{$self->{url}->{$url}->{$found_tier}}
-                	 if exists $self->{url}->{$url}->{$found_tier};
-                
-                push @target_config, { udl => $udl, new_value => $new_datum};
-				@{$self->{url}->{$url}->{$found_tier}} = @target_config;
+				confess("Target config is null") unless $found_tier;
 
+				my @target_config = ();
+
+				if ( exists $pg->{url}->{$url}->{$found_tier} ) {
+
+					@target_config = @{ $pg->{url}->{$url}->{$found_tier} };
+				}
+				
+				push @target_config, { udl => $udl, new_value => $new_datum };
+
+				@{ $pg->{url}->{$url}->{$found_tier} } = @target_config;
+				
+				unless ( exists $pg->{url}->{$url}->{file_type} ) {
+					$pg->{url}->{$url}->{file_type} =
+					  $self->get_file_type_from_url($url);
+				}
 			  }
 		}
 	);
 
-	return $spreadsheet_handler->parsefile($file);
+	$spreadsheet_handler->parsefile($file);
+
+	return $pg;
 
 }
 
@@ -207,6 +228,39 @@ defining columns in an excel spreadsheet
 	$self->{config_properties} = $properties->getProperties;
 
 	return 1;
+
+}
+
+sub get_file_type_from_udl {
+	my $self = shift;
+
+	my $udl = shift or confess("UDL not defined!");
+
+	$udl = m|(\w+)://|;
+	my $protocol = $1;
+
+	my $file_types;
+
+	$file_types->{xpath}    = 'xml';
+	$file_types->{property} = 'property';
+	$file_types->{token}    = 'text';
+
+	return $file_types->{$protocol};
+
+}
+
+sub get_file_type_from_url {
+	my $self = shift;
+
+	my $url = shift or confess("URL not defined!");
+
+	my ( $name, $path, $ext ) = fileparse( $url, qw( .xml .properties) );
+
+	$ext =~ s/^\.//;
+
+	print "FOUND FILE TYPE: $ext\n";
+
+	return $ext;
 
 }
 
