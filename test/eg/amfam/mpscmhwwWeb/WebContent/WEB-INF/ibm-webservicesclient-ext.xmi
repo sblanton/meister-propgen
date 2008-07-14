@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<com.ibm.etools.webservice.wscext:WsClientExtension xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:com.ibm.etools.webservice.wscext="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wscext.xmi" xmi:id="WsClientExtension_1212607015084">
-  <serviceRefs xmi:id="ServiceRef_1212607015084" serviceRefLink="service/HelloWorldWASService">
-    <portQnameBindings xmi:id="PortQnameBinding_1212607015084" portQnameLocalNameLink="HelloWorldWASService"/>
-  </serviceRefs>
-</com.ibm.etools.webservice.wscext:WsClientExtension>
