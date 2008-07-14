@@ -85,7 +85,7 @@ sub save_target_file {
 
 	my $tgt_file = $self->{target_file_name};
 
-   print "Generating properties file: $tgt_file\n";   
+   print "Generating properties file: $tgt_file\n";
 
 	open TGT, ">$tgt_file" or die "Couldn't open target properties file";
 	$properties->store(*TGT);
