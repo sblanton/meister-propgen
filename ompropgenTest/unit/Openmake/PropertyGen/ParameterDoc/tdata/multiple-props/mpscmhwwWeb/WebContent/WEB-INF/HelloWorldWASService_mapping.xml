@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE java-wsdl-mapping PUBLIC "-//IBM Corporation, Inc.//DTD J2EE JAX-RPC mapping 1.0//EN" "http://www.ibm.com/webservices/dtd/j2ee_jaxrpc_mapping_1_0.dtd">
+
+   <java-wsdl-mapping id="JavaWSDLMapping_1212607015241">
+      <package-mapping id="PackageMapping_1212607015241">
+         <package-type>com.amfam.service</package-type>
+         <namespaceURI>http://service.amfam.com</namespaceURI>
+      </package-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1212607015241">
+         <class-type>com.amfam.service.VerificationType[]</class-type>
+         <root-type-qname id="RootTypeQname_1212607015241">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>VerificationType[unbounded]</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1212607015242">
+         <class-type>java.lang.String</class-type>
+         <root-type-qname id="RootTypeQname_1212607015242">
+            <namespaceURI>http://www.w3.org/2001/XMLSchema</namespaceURI>
+            <localpart>string</localpart>
+         </root-type-qname>
+         <qname-scope>simpleType</qname-scope>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1212607015243">
+         <class-type>com.amfam.service.StatusType</class-type>
+         <root-type-qname id="RootTypeQname_1212607015243">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>StatusType</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1212607015241">
+            <java-variable-name>value</java-variable-name>
+            <xml-element-name>value</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1212607015244">
+         <class-type>com.amfam.service.PingInputType</class-type>
+         <root-type-qname id="RootTypeQname_1212607015244">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>PingInputType</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1212607015242">
+            <java-variable-name>pingLevel</java-variable-name>
+            <xml-element-name>pingLevel</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1212607015245">
+         <class-type>com.amfam.service.PingResultType</class-type>
+         <root-type-qname id="RootTypeQname_1212607015245">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>PingResultType</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1212607015243">
+            <java-variable-name>status</java-variable-name>
+            <xml-element-name>status</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1212607015244">
+            <java-variable-name>message</java-variable-name>
+            <xml-element-name>message</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1212607015245">
+            <java-variable-name>verification</java-variable-name>
+            <xml-element-name>verification</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1212607015246">
+            <java-variable-name>timeTakenForPing</java-variable-name>
+            <xml-element-name>timeTakenForPing</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1212607015246">
+         <class-type>com.amfam.service.VerificationType</class-type>
+         <root-type-qname id="RootTypeQname_1212607015246">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>VerificationType</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1212607015247">
+            <java-variable-name>componentName</java-variable-name>
+            <xml-element-name>componentName</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1212607015248">
+            <java-variable-name>status</java-variable-name>
+            <xml-element-name>status</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1212607015249">
+            <java-variable-name>message</java-variable-name>
+            <xml-element-name>message</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1212607015250">
+            <java-variable-name>timeTakenForComponentVerification</java-variable-name>
+            <xml-element-name>timeTakenForComponentVerification</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1212607015247">
+         <class-type>com.amfam.service.PingLevelType</class-type>
+         <root-type-qname id="RootTypeQname_1212607015247">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>PingLevelType</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+      </java-xml-type-mapping>
+      <service-interface-mapping id="ServiceInterfaceMapping_1212607015241">
+         <service-interface>com.amfam.service.HelloWorldWASService_Service</service-interface>
+         <wsdl-service-name id="WSDLServiceName_1212607015241">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>HelloWorldWASService</localpart>
+         </wsdl-service-name>
+         <port-mapping id="PortMapping_1212607015241">
+            <port-name>HelloWorldWASService</port-name>
+            <java-port-name>HelloWorldWASService</java-port-name>
+         </port-mapping>
+      </service-interface-mapping>
+      <service-endpoint-interface-mapping id="ServiceEndpointInterfaceMapping_1212607015241">
+         <service-endpoint-interface>com.amfam.service.HelloWorldWASService_Port</service-endpoint-interface>
+         <wsdl-port-type id="WSDLPortType_1212607015241">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>HelloWorldWASService</localpart>
+         </wsdl-port-type>
+         <wsdl-binding id="WSDLBinding_1212607015241">
+            <namespaceURI>http://service.amfam.com</namespaceURI>
+            <localpart>HelloWorldWASServiceSoapBinding</localpart>
+         </wsdl-binding>
+         <service-endpoint-method-mapping id="ServiceEndpointMethodMapping_1212607015241">
+            <java-method-name>ping</java-method-name>
+            <wsdl-operation>ping</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping id="MethodParamPartsMapping_1212607015241">
+               <param-position>0</param-position>
+               <param-type>com.amfam.service.PingInputType</param-type>
+               <wsdl-message-mapping id="WSDLMessageMapping_1212607015241">
+                  <wsdl-message id="WSDLMessage_1212607015241">
+                     <namespaceURI>http://service.amfam.com</namespaceURI>
+                     <localpart>pingRequest</localpart>
+                  </wsdl-message>
+                  <wsdl-message-part-name>pingInput</wsdl-message-part-name>
+                  <parameter-mode>IN</parameter-mode>
+               </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping id="WSDLReturnValueMapping_1212607015241">
+               <method-return-value>com.amfam.service.PingResultType</method-return-value>
+               <wsdl-message id="WSDLMessage_1212607015242">
+                  <namespaceURI>http://service.amfam.com</namespaceURI>
+                  <localpart>pingResponse</localpart>
+               </wsdl-message>
+               <wsdl-message-part-name>pingReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+         </service-endpoint-method-mapping>
+         <service-endpoint-method-mapping id="ServiceEndpointMethodMapping_1212607015242">
+            <java-method-name>message</java-method-name>
+            <wsdl-operation>message</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping id="MethodParamPartsMapping_1212607015242">
+               <param-position>0</param-position>
+               <param-type>java.lang.String</param-type>
+               <wsdl-message-mapping id="WSDLMessageMapping_1212607015242">
+                  <wsdl-message id="WSDLMessage_1212607015243">
+                     <namespaceURI>http://service.amfam.com</namespaceURI>
+                     <localpart>messageRequest</localpart>
+                  </wsdl-message>
+                  <wsdl-message-part-name>msg</wsdl-message-part-name>
+                  <parameter-mode>IN</parameter-mode>
+               </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping id="WSDLReturnValueMapping_1212607015242">
+               <method-return-value>java.lang.String</method-return-value>
+               <wsdl-message id="WSDLMessage_1212607015244">
+                  <namespaceURI>http://service.amfam.com</namespaceURI>
+                  <localpart>messageResponse</localpart>
+               </wsdl-message>
+               <wsdl-message-part-name>messageReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+         </service-endpoint-method-mapping>
+      </service-endpoint-interface-mapping>
+   </java-wsdl-mapping>

@@ -21,13 +21,17 @@ sub new {
 	return $self->SUPER::new(@_);
 }
 
-sub parse_all {
+sub apply_all_operations {
 	my $self = shift;
 
 	$self->{text} = $self->read_source_file()
 	  or confess();
 
-	foreach my $op ( $self->{operations} ) {
+my @ops = @{$self->{operations}};
+print "Processing " . scalar @ops . " operations\n";
+
+	foreach my $op ( @ops ) {
+	print "OP: $op\n";
 		$self->parse_xpath($op);
 	}
 

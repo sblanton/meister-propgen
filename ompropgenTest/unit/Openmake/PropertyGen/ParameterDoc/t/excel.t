@@ -50,7 +50,6 @@ ok(exists $first_op->{udl}, "udl exists for first op");
 $pg->{output_location} = '.';
 $pg->{workspace_location} = '.';
 
-my @processors;
 my $rProcessors;
 
 ok($rProcessors = $pg->generate_all_target_config_processors('dev'),"Generate processors");
@@ -58,6 +57,6 @@ ok($rProcessors = $pg->generate_all_target_config_processors('dev'),"Generate pr
 ok( (scalar @$rProcessors > 0), "\@processors is not null: " . scalar @$rProcessors);
 
 foreach my $proc ( @$rProcessors ) {
-	ok( $proc->parse_all(), "parse_all successful" )
+	ok( $proc->apply_all_operations(), "parse_all successful" )
 }
 

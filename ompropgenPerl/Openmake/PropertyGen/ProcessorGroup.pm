@@ -94,10 +94,10 @@ sub generate_all_target_config_processors {
 		if ( exists $self->{url}->{$url}->{$target_config} ) {
 
 			my $source_file = $url;
-			my @ops         = @{ $self->{url}->{$url}->{$target_config} };
+			my @ops         = @{$self->{url}->{$url}->{$target_config}};
 			my $file_type   = $self->{url}->{$url}->{file_type};
 
-			print "Creating processor for $source_file and $target_config...\n";
+			print "Creating processor for $source_file and $target_config..." . scalar @ops . " operations\n";
 
 			my %processor_class = (
 				properties => 'Property',
@@ -114,7 +114,7 @@ sub generate_all_target_config_processors {
 				target_config    => $target_config,
 				output_location  => $self->{output_location},
 				workspace_location  => $self->{workspace_location},
-				operations       => @ops
+				operations       => \@ops
 			);
 
 			confess(

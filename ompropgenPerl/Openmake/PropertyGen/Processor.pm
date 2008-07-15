@@ -55,7 +55,7 @@ sub initialize {
 
 }
 
-sub parse_all {
+sub apply_all_operations {
  confess("SKELETON NOT OVERRIDDEN")
 
 }

@@ -105,7 +105,7 @@
   </Style>
  </Styles>
  <Worksheet ss:Name="Original Provider Endpoints">
-  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="44" x:FullColumns="1"
+  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="45" x:FullColumns="1"
    x:FullRows="1">
    <Column ss:AutoFitWidth="0" ss:Width="57"/>
    <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="144"/>
@@ -223,6 +223,14 @@
    <Row>
     <Cell ss:StyleID="s71"/>
     <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s73"><Data ss:Type="String">dev</Data></Cell>
+    <Cell ss:StyleID="s75"/>
+    <Cell ss:StyleID="s74"><Data ss:Type="String">property://second_prop</Data></Cell>
+    <Cell ss:StyleID="s76"><Data ss:Type="String">second_value</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s72"/>
     <Cell ss:StyleID="s73"/>
     <Cell ss:StyleID="s74"/>
     <Cell ss:StyleID="s72"/>
@@ -267,7 +275,7 @@
     <Cell ss:StyleID="s72"/>
     <Cell ss:StyleID="s76"><Data ss:Type="String">/opt/jbinstall/applogs/mpscmhar_cirwss</Data></Cell>
    </Row>
-   <Row ss:Index="24" ss:AutoFitHeight="0" ss:Height="25.5">
+   <Row ss:Index="25" ss:AutoFitHeight="0" ss:Height="25.5">
     <Cell ss:StyleID="s71"><Data ss:Type="String">JBoss</Data></Cell>
     <Cell ss:StyleID="s72"><Data ss:Type="String">mpscmfb_service</Data></Cell>
     <Cell ss:StyleID="s73"><Data ss:Type="String">dev</Data></Cell>
@@ -307,20 +315,41 @@
     <Cell ss:StyleID="s72"/>
     <Cell><Data ss:Type="String">http://prdesb/ccx/cc-router/FooBarJBossService</Data></Cell>
    </Row>
-   <Row ss:Index="30">
-    <Cell ss:Index="3" ss:StyleID="s73"/>
+   <Row ss:Index="31" ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s72"/>
    </Row>
    <Row>
-    <Cell ss:Index="3" ss:StyleID="s73"/>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s74"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s76"/>
    </Row>
    <Row>
-    <Cell ss:Index="3" ss:StyleID="s73"/>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s74"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s76"/>
    </Row>
    <Row>
-    <Cell ss:Index="3" ss:StyleID="s73"/>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s74"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s76"/>
    </Row>
    <Row>
-    <Cell ss:Index="3" ss:StyleID="s73"/>
+    <Cell ss:StyleID="s71"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s73"/>
+    <Cell ss:StyleID="s74"/>
+    <Cell ss:StyleID="s72"/>
+    <Cell ss:StyleID="s76"/>
    </Row>
    <Row>
     <Cell ss:Index="3" ss:StyleID="s73"/>
@@ -360,12 +389,12 @@
     <VerticalResolution>600</VerticalResolution>
    </Print>
    <Selected/>
-   <TopRowVisible>4</TopRowVisible>
+   <TopRowVisible>17</TopRowVisible>
    <Panes>
     <Pane>
      <Number>3</Number>
-     <ActiveRow>5</ActiveRow>
-     <ActiveCol>4</ActiveCol>
+     <ActiveRow>27</ActiveRow>
+     <ActiveCol>1</ActiveCol>
     </Pane>
    </Panes>
    <ProtectObjects>False</ProtectObjects>

@@ -130,7 +130,7 @@ and operation information
 
 				}
 
-				print "Reading row: $iRow\n";
+				#print "Reading row: $iRow\n";
 
 				return unless $iRow >= $iStartingRow;
 
@@ -185,9 +185,13 @@ and operation information
 					@target_config = @{ $pg->{url}->{$url}->{$found_tier} };
 				}
 				
+				print "Pushing $udl => $new_datum onto $found_tier\n";
+				
 				push @target_config, { udl => $udl, new_value => $new_datum };
 
 				@{ $pg->{url}->{$url}->{$found_tier} } = @target_config;
+				
+				print "Target config now has " . scalar @target_config . " ops\n";
 				
 				unless ( exists $pg->{url}->{$url}->{file_type} ) {
 					$pg->{url}->{$url}->{file_type} =

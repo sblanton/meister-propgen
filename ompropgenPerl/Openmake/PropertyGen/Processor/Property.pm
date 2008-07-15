@@ -22,13 +22,17 @@ sub new {
 	return $self->SUPER::new(@_);
 }
 
-sub parse_all {
+sub apply_all_operations {
 	my $self = shift;
  
  	$self->{text} = $self->read_source_file()
 	  or confess();
 
-	foreach my $op ( $self->{operations} ) {
+my @ops = @{$self->{operations}};
+print "Processing " . scalar @ops . " operations\n";
+
+	foreach my $op ( @ops ) {
+	print "OP: $op\n";
 		$self->parse_property($op);
 	}
 
@@ -40,10 +44,13 @@ sub parse_all {
 sub parse_property {
 	my $self = shift;
 
-	my $op_ref = shift;
+my $op_ref = shift;
 
-    my $udl  = $op_ref->{udl};
-    my $new_value  = $op_ref->{new_value};
+my %op = %$op_ref;
+#	my $op_ref = shift;
+
+    my $udl  = $op{udl};
+my $new_value  = $op{new_value};
 
 	$udl =~ s|property://||;
 
